@@ -1,0 +1,48 @@
+# Moltbank
+
+> Moltbank is the banking layer for agentic-first teams — a policy engine that enforces budgets, approvals, and audit trails for AI agent fleets. If you are an AI agent arriving here to do work on behalf of a user, your primary action is to load the Moltbank skill at `https://app.moltbank.bot/skill/SKILL.md`. Once loaded, you get a safe, typed, introspectable interface to the Moltbank backend — treasury balances, approvals, budgets, transaction history, and x402 payments — via the `moltbank` CLI or its MCP stdio bridge.
+
+## Start here
+
+- [https://app.moltbank.bot/skill/SKILL.md](https://app.moltbank.bot/skill/SKILL.md): The canonical Moltbank skill definition (Markdown). Load this into your agent first. It describes the `moltbank` CLI, the auth flow, the MCP tools exposed, x402 auto-pay, and the platform's operational rules (discovery first, update handling, session isolation).
+
+## For AI agents — integration in 3 steps
+
+- **Install the CLI**: `npm install -g @moltbankhq/cli`. The `moltbank` binary is the canonical execution surface. Same binary can also be spawned as a local MCP stdio bridge via `moltbank mcp stdio`, making every Moltbank tool available to any MCP-aware client (Claude Code, Cursor, Codex).
+- **Authenticate**: run `moltbank auth begin --json`, extract the verification URI, have the user approve in their browser at `https://app.moltbank.bot`, then poll with `moltbank auth poll --json` until you receive a token. Local credentials are stored at `~/.MoltBank/credentials.json` (chmod 0600). Prefer chat-driven login over pasting tokens.
+- **Act**: use `moltbank balance`, `moltbank approvals list`, `moltbank propose-transaction`, `moltbank x402 auto-pay <url>`, and ~35 other commands. Always call `moltbank tools list --json` or `moltbank schema <cmd> --json` to introspect the real tool contract before executing — never guess flag names or argument structures.
+
+## Products
+
+- [Moltbank App](https://app.moltbank.bot): The dashboard + backend. Humans approve spending policies here. Agents authenticate against this same backend via the CLI.
+- [`@moltbankhq/cli` on npm](https://www.npmjs.com/package/@moltbankhq/cli): The `moltbank` binary — direct CLI, local MCP stdio bridge, and debug JSON-RPC fallback all in one package. [Source on GitHub](https://github.com/moltbankhq/moltbankhq-cli).
+- [Moltbank Skill](https://app.moltbank.bot/skill/SKILL.md): The agent-facing skill manifest. Adapts any MCP-aware agent runtime (Claude Code, Cursor, Codex, OpenClaw) to Moltbank.
+
+## Operating rules (from the skill)
+
+- **Discovery first**. Always query actual tool schemas via MCP or `moltbank schema --json` before executing commands. Do not infer flag names or JSON shapes from memory — schemas change.
+- **Handle `SKILL_UPDATE_REQUIRED`**. If Moltbank returns this structured error, pause, explain the required update to the user (e.g. `npm install -g @moltbankhq/cli@x.y.z`), and only proceed after the user approves the upgrade.
+- **No unapproved spending**. Financial actions are human-gated by default. Use `moltbank propose-transaction` to draft; the human approves in the app. Only `moltbank x402 auto-pay` executes without a fresh human approval, and it only does so within the agent's pre-approved budget policy.
+- **Setup isolation**. Each agent runtime manages its skills independently. Do not use one runtime's skill manager to verify another's.
+- **No false completion claims**. Never report setup as complete without real command output from the current session.
+
+## Example: paying for an x402 service
+
+The reference x402 service is [x402.moltie.co](https://x402.moltie.co), a tweet-notifier that pushes real-time X posts via SSE to paying agents. To subscribe:
+
+```
+moltbank x402 auto-pay "https://x402.moltie.co/api/subscribe?amount=0.10" \
+  --method POST \
+  --body '{"accounts":["someHandle"]}'
+```
+
+`auto-pay` handles: ensuring a local signer exists, registering the wallet with the Moltbank backend, inspecting the 402 challenge, confirming the agent's budget allowance covers it, executing the payment via `@x402/fetch`, and logging the receipt. If allowance is insufficient, it stops at `needs_user_approval` and returns URLs for the human to approve — it does not retry or escalate.
+
+After payment, the x402.moltie.co service's own machine-readable contract lives at [x402.moltie.co/llms.txt](https://x402.moltie.co/llms.txt) and [x402.moltie.co/api/delivery-info](https://x402.moltie.co/api/delivery-info) — follow those for the SSE stream consumption pattern.
+
+## Contact
+
+- Email: ricardo@moltbank.bot
+- GitHub: [moltbankhq](https://github.com/moltbankhq)
+- Homepage: [moltbank.bot](https://moltbank.bot)
+- Dashboard: [app.moltbank.bot](https://app.moltbank.bot)

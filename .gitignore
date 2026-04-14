@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Local env / secrets
+.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Lockfile — Figma Make exports don't ship a lockfile, avoid drift.
+# Delete this line if you decide to vendor a lockfile.
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Log / debug artifacts
+*.log
+npm-debug.log*
