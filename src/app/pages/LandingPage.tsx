@@ -822,9 +822,12 @@ function Footer({ isDarkMode }: { isDarkMode: boolean }) {
         <div className="text-sm text-muted-foreground">
           © 2026 Molt Inc. All rights reserved.
         </div>
-        <div className="flex gap-6">
+        <div className="flex gap-6 flex-wrap justify-center">
           <a href="#" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Privacy</a>
           <a href="#" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Terms</a>
+          {/* Discoverability pointer for AI agents and crawlers.
+              /llms.txt follows the llmstxt.org convention. */}
+          <a href="/llms.txt" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors" title="Machine-readable guide for AI agents (Markdown)">For AI agents</a>
         </div>
       </div>
     </footer>

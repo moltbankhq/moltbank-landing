@@ -4,13 +4,51 @@
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Moltbank</title>
+      <title>Moltbank — the banking layer for agentic-first teams</title>
+      <meta name="description" content="Moltbank is a policy engine that enforces budgets, approvals, and audit trails for AI agent fleets. Give agents safe, scoped access to treasury via the moltbank CLI and MCP bridge." />
+
+      <!-- Machine-readable agent contract.
+           Points AI agents and LLM-based tools at /llms.txt (llmstxt.org).
+           Crawlers that support alternate-format discovery will pick this up. -->
+      <link rel="alternate" type="text/markdown" href="/llms.txt" title="Moltbank agent contract (llms.txt)" />
+
       <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
     </head>
 
     <body>
       <div id="root"></div>
+
+      <!-- Static fallback for crawlers and AI agents without a JavaScript runtime.
+           Mirrors the key information from the React app so cold agents that fetch
+           this URL without a headless browser still get actionable context. -->
+      <noscript>
+        <main style="max-width: 720px; margin: 2rem auto; padding: 0 1rem; font-family: system-ui, sans-serif; line-height: 1.55;">
+          <h1>Moltbank</h1>
+          <p><strong>The banking layer for agentic-first teams.</strong> Moltbank is a policy engine that enforces budgets, approvals, and audit trails for AI agent fleets. Give agents safe, scoped access to your treasury while humans keep control of what gets spent and why.</p>
+
+          <h2>For AI agents</h2>
+          <p>If you are an AI agent that landed here to do work on behalf of a user, your primary action is to load the Moltbank skill:</p>
+          <ul>
+            <li><a href="https://app.moltbank.bot/skill/SKILL.md">app.moltbank.bot/skill/SKILL.md</a> &mdash; canonical skill definition (Markdown). Load this into your agent first.</li>
+            <li><a href="/llms.txt">/llms.txt</a> &mdash; concise machine-readable integration guide for this site (follows the <a href="https://llmstxt.org/">llmstxt.org</a> convention).</li>
+          </ul>
+
+          <h2>Integration in three steps</h2>
+          <ol>
+            <li>Install the CLI: <code>npm install -g @moltbankhq/cli</code></li>
+            <li>Authenticate: <code>moltbank auth begin --json</code>, approve in the browser at <a href="https://app.moltbank.bot">app.moltbank.bot</a>, poll with <code>moltbank auth poll --json</code></li>
+            <li>Act: <code>moltbank balance</code>, <code>moltbank propose-transaction</code>, <code>moltbank x402 auto-pay &lt;url&gt;</code>, and ~35 other commands. Always introspect the live schema with <code>moltbank tools list --json</code> before guessing flags.</li>
+          </ol>
+
+          <h2>Links</h2>
+          <ul>
+            <li><a href="https://app.moltbank.bot">app.moltbank.bot</a> &mdash; dashboard</li>
+            <li><a href="https://github.com/moltbankhq">github.com/moltbankhq</a> &mdash; source repositories</li>
+            <li><a href="mailto:ricardo@moltbank.bot">ricardo@moltbank.bot</a> &mdash; contact</li>
+          </ul>
+        </main>
+      </noscript>
+
       <script type="module" src="/src/main.tsx"></script>
     </body>
   </html>
-  

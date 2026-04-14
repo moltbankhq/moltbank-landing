@@ -1,0 +1,11 @@
+# robots.txt for moltbank.bot
+#
+# Default: allow all well-behaved crawlers and agents.
+# Machine-readable agent contract: /llms.txt (llmstxt.org spec).
+
+User-agent: *
+Allow: /
+
+# Pointer to the agent-facing summary of this site.
+# llms.txt is the emerging convention for LLM-friendly content indexes.
+# See https://llmstxt.org/ for the spec.
