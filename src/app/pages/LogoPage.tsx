@@ -6,7 +6,8 @@ export default function LogoPage() {
   return (
     <>
       <Helmet>
-        <title>MoltBank Logo</title>
+        <title>Moltbank Logo</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <div className="flex items-center justify-center min-h-screen bg-black">
         <img src={newMoltLogo} alt="MoltBank Logo" className="max-w-[90vw] max-h-[90vh] object-contain" />

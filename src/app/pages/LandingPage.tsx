@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router';
+import { Link as RouterLink, useSearchParams } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, ShieldAlert, FileSearch, Wallet, CheckCircle2, ChevronRight, X, Play, CreditCard, Lock, Eye, AlertTriangle, Loader2, Copy, Users, TrendingUp, Sun, Moon } from 'lucide-react';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -8,7 +8,6 @@ import { twMerge } from 'tailwind-merge';
 import { toast, Toaster } from "sonner";
 import { Helmet } from 'react-helmet-async';
 import bridgeLogo from "figma:asset/119ed51e52a0a3201170aa0fb7adfea23d79aead.png";
-import socialPreviewImg from "figma:asset/9611b4d232a9b9467fe5dcb33bddec6e69e92556.png";
 import safeLogo from "figma:asset/3c5bd74a5614aed21b77349867167772c2c55118.png";
 import baseLogo from "figma:asset/4db65829c65302d957eb97fbea094334941479b9.png";
 import alchemyLogo from "figma:asset/cebb7b5e227fe14ac27e985204b4bafebb7afa86.png";
@@ -823,8 +822,8 @@ function Footer({ isDarkMode }: { isDarkMode: boolean }) {
           © 2026 Molt Inc. All rights reserved.
         </div>
         <div className="flex gap-6 flex-wrap justify-center">
-          <a href="#" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Privacy</a>
-          <a href="#" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Terms</a>
+          <RouterLink to="/privacy" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Privacy</RouterLink>
+          <RouterLink to="/terms" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Terms</RouterLink>
           {/* Discoverability pointer for AI agents and crawlers.
               /llms.txt follows the llmstxt.org convention. */}
           <a href="/llms.txt" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors" title="Machine-readable guide for AI agents (Markdown)">For AI agents</a>
@@ -1112,29 +1111,19 @@ export default function LandingPage() {
 
   return (
     <div className={cn(isDarkMode ? "dark" : "light")}>
+      {/*
+        The canonical title, description, canonical URL, OG/Twitter meta, and JSON-LD
+        are baked into index.html so non-JS social crawlers (Twitter, Slack, LinkedIn)
+        always see them. Helmet here only overrides values for client-navigated routes
+        that need to differ from the static baseline. For `/` they match.
+      */}
       <Helmet>
-        <title>MoltBank - Secure Bank for Agent Fleets</title>
-        <meta name="description" content="Secure your agent fleet with MoltBank. Spending controls, audit logs, and institutional security." />
-        <link rel="canonical" href={window.location.origin} />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={window.location.href} />
-        <meta property="og:site_name" content="MoltBank" />
-        <meta property="og:title" content="MoltBank - Secure Bank for Agent Fleets" />
-        <meta property="og:description" content="Secure your agent fleet with MoltBank. Spending controls, audit logs, and institutional security." />
-        <meta property="og:image" content={socialPreviewImg.startsWith('http') ? socialPreviewImg : `${window.location.origin}${socialPreviewImg.startsWith('/') ? '' : '/'}${socialPreviewImg}`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@moltbanker" />
-        <meta name="twitter:creator" content="@moltbanker" />
-        <meta name="twitter:title" content="MoltBank - Secure Bank for Agent Fleets" />
-        <meta name="twitter:description" content="Secure your agent fleet with MoltBank. Spending controls, audit logs, and institutional security." />
-        <meta name="twitter:image" content={socialPreviewImg.startsWith('http') ? socialPreviewImg : `${window.location.origin}${socialPreviewImg.startsWith('/') ? '' : '/'}${socialPreviewImg}`} />
-        <meta name="twitter:image:alt" content="MoltBank - Secure Bank for Agent Fleets" />
+        <title>Moltbank — the banking layer for agentic-first teams</title>
+        <meta
+          name="description"
+          content="Moltbank is a policy engine that enforces budgets, approvals, and audit trails for AI agent fleets. Give agents safe, scoped access to treasury via the moltbank CLI and MCP bridge."
+        />
+        <link rel="canonical" href="https://moltbank.bot/" />
       </Helmet>
       
       {/* Light/Dark mode variables override */}

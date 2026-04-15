@@ -11,3 +11,5 @@ User-agent: *
 Allow: /
 Disallow: /logo
 Disallow: /social-image
+
+Sitemap: https://moltbank.bot/sitemap.xml

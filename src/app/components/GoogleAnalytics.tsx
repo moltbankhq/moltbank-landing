@@ -8,35 +8,43 @@ declare global {
   }
 }
 
+const GA_ID = (import.meta.env.VITE_GA_ID as string | undefined) || 'G-F01QMEGN0M';
+
+// Internal utility routes that should not be tracked.
+const UNTRACKED_PREFIXES = ['/logo', '/social-image'];
+
+function isUntracked(pathname: string) {
+  return UNTRACKED_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+}
+
 export function GoogleAnalytics() {
   const location = useLocation();
 
   useEffect(() => {
-    // Check if script is already added
-    if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-F01QMEGN0M';
-      document.head.appendChild(script);
+    if (!GA_ID) return;
+    if (document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) return;
 
-      // Initialize dataLayer and gtag function
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function() {
-        window.dataLayer.push(arguments);
-      };
-      window.gtag('js', new Date());
-      // We do NOT call config here to avoid double tracking on initial load
-      // The useEffect below will handle the initial config call
-    }
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag('js', new Date());
+    // Do NOT call config here — the effect below handles it on route changes.
   }, []);
 
   useEffect(() => {
-    // Send pageview on route change
-    if (typeof window.gtag === 'function') {
-      window.gtag('config', 'G-F01QMEGN0M', {
-        page_path: location.pathname + location.search,
-      });
-    }
+    if (!GA_ID) return;
+    if (typeof window.gtag !== 'function') return;
+    if (isUntracked(location.pathname)) return;
+
+    window.gtag('config', GA_ID, {
+      page_path: location.pathname + location.search,
+    });
   }, [location]);
 
   return null;
