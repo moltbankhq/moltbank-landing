@@ -6,7 +6,6 @@ import { FaXTwitter } from 'react-icons/fa6';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { toast, Toaster } from "sonner";
-import { Helmet } from 'react-helmet-async';
 import bridgeLogo from "figma:asset/119ed51e52a0a3201170aa0fb7adfea23d79aead.png";
 import safeLogo from "figma:asset/3c5bd74a5614aed21b77349867167772c2c55118.png";
 import baseLogo from "figma:asset/4db65829c65302d957eb97fbea094334941479b9.png";
@@ -84,7 +83,7 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
         )}>
           <button
             onClick={() => setActiveTab('agents')}
-            className={cn("flex-1 py-1.5 md:py-2 px-4 font-bold transition-all duration-300 uppercase tracking-widest flex items-center justify-center gap-2 text-[13px] text-[14px]", activeTab === 'agents'
+            className={cn("flex-1 py-1.5 md:py-2 px-4 font-bold transition-all duration-300 uppercase tracking-widest flex items-center justify-center gap-2 text-[13px] text-[14px] cursor-pointer", activeTab === 'agents'
     ? isDarkMode ? "bg-[#1c1c1c] text-white shadow-lg shadow-black/50" : "bg-white text-gray-900 shadow-sm"
     : isDarkMode ? "text-gray-500 hover:text-gray-400 hover:bg-white/5" : "text-gray-400 hover:text-gray-600 hover:bg-white/50")}
           >
@@ -93,7 +92,7 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
           </button>
           <button
             onClick={() => setActiveTab('humans')}
-            className={cn("flex-1 py-1.5 md:py-2 px-4 font-bold transition-all duration-300 uppercase tracking-widest flex items-center justify-center gap-2 text-[13px] text-[14px]", activeTab === 'humans'
+            className={cn("flex-1 py-1.5 md:py-2 px-4 font-bold transition-all duration-300 uppercase tracking-widest flex items-center justify-center gap-2 text-[13px] text-[14px] cursor-pointer", activeTab === 'humans'
     ? isDarkMode ? "bg-[#1c1c1c] text-white shadow-lg shadow-black/50" : "bg-white text-gray-900 shadow-sm"
     : isDarkMode ? "text-gray-500 hover:text-gray-400 hover:bg-white/5" : "text-gray-400 hover:text-gray-600 hover:bg-white/50")}
           >
@@ -132,7 +131,7 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
                   <div className={cn("flex-1 px-2 py-1 whitespace-normal break-words text-left leading-relaxed text-[14px]", isDarkMode ? "text-gray-300" : "text-gray-700")}>Set up https://app.moltbank.bot/skill/SKILL.md </div>
                   <button 
                     onClick={() => copyToClipboard("Set up https://app.moltbank.bot/skill/SKILL.md")}
-                    className="bg-[#c41e05] text-[#fffafa] px-5 font-bold text-xs hover:bg-[#a31804] hover:shadow-[0_4px_14px_rgba(196,30,5,0.25)] transition-all flex items-center justify-center gap-2 whitespace-nowrap uppercase tracking-widest shrink-0 self-stretch -mr-1.5 md:-mr-2 -my-1.5 md:-my-2"
+                    className="bg-[#c41e05] text-[#fffafa] px-5 font-bold text-xs hover:bg-[#a31804] hover:shadow-[0_4px_14px_rgba(196,30,5,0.25)] transition-all flex items-center justify-center gap-2 whitespace-nowrap uppercase tracking-widest shrink-0 self-stretch -mr-1.5 md:-mr-2 -my-1.5 md:-my-2 cursor-pointer"
                   >
                     <Copy className="w-3.5 h-3.5" />
                     Copy
@@ -986,7 +985,7 @@ function WaitlistModal({ isOpen, onClose, data, isDarkMode }: { isOpen: boolean,
              <button 
                onClick={handleShareTwitter}
                className={cn(
-                 "w-full font-bold text-base px-6 py-4 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98]",
+                 "w-full font-bold text-base px-6 py-4 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer",
                  isDarkMode ? "bg-white text-black hover:bg-gray-200" : "bg-black text-white hover:bg-gray-800"
                )}
              >
@@ -1001,7 +1000,7 @@ function WaitlistModal({ isOpen, onClose, data, isDarkMode }: { isOpen: boolean,
                 </div>
                 <button 
                   onClick={copyToClipboard}
-                  className="bg-[#c41e05] hover:bg-[#d6280e] text-black font-bold px-6 h-[56px] flex items-center gap-2 transition-all hover:brightness-110 active:brightness-90 whitespace-nowrap"
+                  className="bg-[#c41e05] hover:bg-[#d6280e] text-black font-bold px-6 h-[56px] flex items-center gap-2 transition-all hover:brightness-110 active:brightness-90 whitespace-nowrap cursor-pointer"
                   title="Copy Link"
                 >
                   <span>COPY</span>
@@ -1112,20 +1111,13 @@ export default function LandingPage() {
   return (
     <div className={cn(isDarkMode ? "dark" : "light")}>
       {/*
-        The canonical title, description, canonical URL, OG/Twitter meta, and JSON-LD
-        are baked into index.html so non-JS social crawlers (Twitter, Slack, LinkedIn)
-        always see them. Helmet here only overrides values for client-navigated routes
-        that need to differ from the static baseline. For `/` they match.
+        Title, description, canonical, OG/Twitter meta, and JSON-LD for `/` are
+        baked into index.html as the single source of truth — non-JS crawlers
+        (Twitter, Slack, LinkedIn) read them without running React. On SPA
+        navigation to other routes (/privacy, /terms) each page's own <Helmet>
+        takes over; on unmount Helmet reverts the DOM to the index.html values.
       */}
-      <Helmet>
-        <title>Moltbank — the banking layer for agentic-first teams</title>
-        <meta
-          name="description"
-          content="Moltbank is a policy engine that enforces budgets, approvals, and audit trails for AI agent fleets. Give agents safe, scoped access to treasury via the moltbank CLI and MCP bridge."
-        />
-        <link rel="canonical" href="https://moltbank.bot/" />
-      </Helmet>
-      
+
       {/* Light/Dark mode variables override */}
       <style dangerouslySetInnerHTML={{ __html: `
         .light {

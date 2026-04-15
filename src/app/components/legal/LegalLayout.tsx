@@ -41,7 +41,7 @@ export function LegalLayout({
           <Link
             to="/"
             className={cn(
-              'inline-flex items-center gap-2 text-sm font-medium transition-colors',
+              'inline-flex items-center gap-2 text-sm font-medium transition-colors cursor-pointer',
               isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-[#050101]'
             )}
           >
@@ -49,7 +49,7 @@ export function LegalLayout({
             Back
           </Link>
 
-          <Link to="/" className="flex items-center" aria-label="Moltbank home">
+          <Link to="/" className="flex items-center cursor-pointer" aria-label="Moltbank home">
             <img
               src={isDarkMode ? darkMoltLogo : lightMoltLogo}
               alt="Moltbank"
@@ -62,7 +62,7 @@ export function LegalLayout({
             onClick={toggleTheme}
             aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             className={cn(
-              'inline-flex h-9 w-9 items-center justify-center rounded-md border transition-colors',
+              'inline-flex h-9 w-9 items-center justify-center rounded-md border transition-colors cursor-pointer',
               isDarkMode
                 ? 'border-white/[0.08] text-gray-300 hover:bg-white/[0.04] hover:text-white'
                 : 'border-black/[0.08] text-gray-700 hover:bg-black/[0.04] hover:text-[#050101]'
