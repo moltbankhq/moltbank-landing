@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 import { useMoltTheme } from '../lib/use-molt-theme';
+import { SITE_URL, OG_IMAGE } from '@/config/site';
 import { LegalLayout } from '../components/legal/LegalLayout';
 import { LegalSection, LegalSubsection } from '../components/legal/LegalSection';
 import { LegalTable } from '../components/legal/LegalTable';
@@ -26,22 +27,24 @@ export default function PrivacyPage() {
           name="description"
           content="Moltbank Privacy Policy describing how we collect, use, and protect your information."
         />
-        <link rel="canonical" href="https://moltbank.bot/privacy" />
+        <link rel="canonical" href={`${SITE_URL}/privacy`} />
+        <link rel="alternate" hreflang="en" href={`${SITE_URL}/privacy`} />
+        <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/privacy`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content="Privacy Policy — Moltbank" />
         <meta
           property="og:description"
           content="Moltbank Privacy Policy describing how we collect, use, and protect your information."
         />
-        <meta property="og:url" content="https://moltbank.bot/privacy" />
-        <meta property="og:image" content="https://moltbank.bot/og-image.png" />
+        <meta property="og:url" content={`${SITE_URL}/privacy`} />
+        <meta property="og:image" content={OG_IMAGE} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Privacy Policy — Moltbank" />
         <meta
           name="twitter:description"
           content="Moltbank Privacy Policy describing how we collect, use, and protect your information."
         />
-        <meta name="twitter:image" content="https://moltbank.bot/og-image.png" />
+        <meta name="twitter:image" content={OG_IMAGE} />
       </Helmet>
 
       <LegalLayout

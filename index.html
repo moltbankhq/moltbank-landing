@@ -4,31 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Moltbank — the banking layer for agentic-first teams</title>
+    <title>Moltbank — The Bank for your Agent Fleet</title>
     <meta name="description" content="Moltbank is a policy engine that enforces budgets, approvals, and audit trails for AI agent fleets. Give agents safe, scoped access to treasury via the moltbank CLI and MCP bridge." />
 
-    <!-- Canonical -->
+    <!-- Canonical + language alternates -->
     <link rel="canonical" href="https://moltbank.bot/" />
+    <link rel="alternate" hreflang="en" href="https://moltbank.bot/" />
+    <link rel="alternate" hreflang="x-default" href="https://moltbank.bot/" />
 
     <!-- Open Graph (static — must live here for non-JS social crawlers) -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Moltbank" />
     <meta property="og:url" content="https://moltbank.bot/" />
-    <meta property="og:title" content="Moltbank — the banking layer for agentic-first teams" />
+    <meta property="og:title" content="Moltbank — The Bank for your Agent Fleet" />
     <meta property="og:description" content="Moltbank is a policy engine that enforces budgets, approvals, and audit trails for AI agent fleets. Give agents safe, scoped access to treasury via the moltbank CLI and MCP bridge." />
     <meta property="og:image" content="https://moltbank.bot/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Moltbank — the banking layer for agentic-first teams" />
+    <meta property="og:image:alt" content="Moltbank — The Bank for your Agent Fleet" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@moltbanker" />
     <meta name="twitter:creator" content="@moltbanker" />
-    <meta name="twitter:title" content="Moltbank — the banking layer for agentic-first teams" />
+    <meta name="twitter:title" content="Moltbank — The Bank for your Agent Fleet" />
     <meta name="twitter:description" content="Moltbank is a policy engine that enforces budgets, approvals, and audit trails for AI agent fleets. Give agents safe, scoped access to treasury via the moltbank CLI and MCP bridge." />
     <meta name="twitter:image" content="https://moltbank.bot/og-image.png" />
-    <meta name="twitter:image:alt" content="Moltbank — the banking layer for agentic-first teams" />
+    <meta name="twitter:image:alt" content="Moltbank — The Bank for your Agent Fleet" />
 
     <!-- Theme + icons -->
     <meta name="theme-color" content="#050101" />
@@ -50,7 +53,7 @@
           "@id": "https://moltbank.bot/#organization",
           "name": "Moltbank",
           "url": "https://moltbank.bot/",
-          "logo": "https://moltbank.bot/og-image.png",
+          "logo": "https://moltbank.bot/favicon.svg",
           "email": "ricardo@moltbank.bot",
           "sameAs": [
             "https://github.com/moltbankhq",
@@ -73,7 +76,7 @@
           "description": "Moltbank is a policy engine that enforces budgets, approvals, and audit trails for AI agent fleets. Give agents safe, scoped access to treasury via the moltbank CLI and MCP bridge.",
           "applicationCategory": "BusinessApplication",
           "operatingSystem": "Web, macOS, Linux, Windows",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/OnlineOnly" },
           "publisher": { "@id": "https://moltbank.bot/#organization" }
         }
       ]
@@ -84,7 +87,47 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <!-- Static content for search-engine crawlers. React's createRoot replaces
+         the contents of #root on mount, so human visitors see the full interactive
+         app. Crawlers that don't execute JavaScript get this semantic HTML instead. -->
+    <div id="root">
+      <main style="max-width:960px;margin:0 auto;padding:2rem 1rem;font-family:system-ui,sans-serif;line-height:1.55">
+        <h1 style="font-size:3rem;font-weight:bold;text-align:center;letter-spacing:-0.02em;line-height:1.1;margin:3rem 0 0.75rem">The Bank for your Agent Fleet</h1>
+        <p style="text-align:center;color:#666;font-size:1.25rem;margin-bottom:2.5rem">Set limits, approve spending, and track every cent in real-time.</p>
+
+        <section>
+          <h2>Three Rules That Keep Your Money Safe</h2>
+          <h3>Agents Have Budgets</h3>
+          <p>Set a spending limit. Agent operates freely until it hits the cap. Then it stops. No negotiations.</p>
+          <h3>Breaches Stay Contained</h3>
+          <p>Compromised agent credentials can only access that agent's designated funds. Your main treasury stays locked.</p>
+          <h3>Nothing Happens in the Dark</h3>
+          <p>Every payment logged with timestamp, vendor, amount, and agent ID. Full paper trail for audits or accounting.</p>
+        </section>
+
+        <section>
+          <h2>Your Agents Are Already Spending. Are You in Control?</h2>
+        </section>
+
+        <section>
+          <h2>Three Steps to Secure Agent Spending</h2>
+          <h3>Set it up once</h3>
+          <p>Ask your Agent to use MoltBank, and define spending rules per agent or team within 3 minutes.</p>
+          <h3>Let Agents Run Free</h3>
+          <p>Your agents spend autonomously on ecosystem services. MoltBank enforces limits automatically.</p>
+          <h3>Always Know Where Money Goes</h3>
+          <p>Real-time dashboard shows every transaction. Export to CSV, QuickBooks, Xero, or your accounting system.</p>
+        </section>
+
+        <p style="text-align:center;margin:2rem 0"><a href="https://app.moltbank.bot/" style="background:#c41e05;color:#fff;padding:0.875rem 2rem;text-decoration:none;font-weight:bold;display:inline-block">Get Started Free</a></p>
+
+        <nav style="text-align:center;margin-top:2rem;font-size:0.875rem">
+          <a href="/privacy" style="margin-right:1.5rem">Privacy</a>
+          <a href="/terms" style="margin-right:1.5rem">Terms</a>
+          <a href="/llms.txt">For AI agents</a>
+        </nav>
+      </main>
+    </div>
 
     <!-- Static fallback for crawlers and AI agents without a JavaScript runtime.
          Mirrors the key information from the React app so cold agents that fetch

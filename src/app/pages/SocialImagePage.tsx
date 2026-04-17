@@ -7,7 +7,7 @@ export default function SocialImagePage() {
     <div className="min-h-screen w-full flex items-center justify-center bg-[#050101] overflow-hidden">
       <Helmet>
         <title>MoltBank | Social Preview</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <img 
         src={socialImg} 
