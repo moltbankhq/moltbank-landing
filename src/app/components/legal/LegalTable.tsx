@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { cn } from '../ui/utils';
+import { cn } from '../../lib/utils';
 
 type LegalTableProps = {
   headers: string[];

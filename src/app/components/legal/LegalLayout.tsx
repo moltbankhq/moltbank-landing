@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router';
 import { ArrowLeft, Sun, Moon } from 'lucide-react';
-import { cn } from '../ui/utils';
+import { cn } from '../../lib/utils';
 import darkMoltLogo from 'figma:asset/5efd1251d9853e37402b89ddef8137f1359fd96b.png';
 import lightMoltLogo from 'figma:asset/31acd87f6e6fd7399715d0018ec02db8ca79c71f.png';
 
