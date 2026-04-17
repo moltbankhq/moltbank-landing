@@ -1,8 +1,8 @@
 /** Canonical SEO constants for the landing site (moltbank.bot).
  *
  *  Every page component and the post-build prerender script
- *  (scripts/prerender-routes.mjs) should derive URLs from these
- *  values instead of hardcoding the domain.
+ *  (scripts/prerender-routes.mjs) derive URLs from these values.
+ *  The prerender script reads SITE_URL from this file at build time.
  *
  *  Static files that can't import TypeScript (index.html, sitemap.xml,
  *  robots.txt) still hardcode the domain — keep them in sync if it changes.

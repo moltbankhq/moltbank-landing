@@ -21,8 +21,12 @@ const distDir = join(__dirname, '..', 'dist');
 
 const baseHtml = readFileSync(join(distDir, 'index.html'), 'utf-8');
 
-// Keep in sync with src/config/site.ts (canonical source of truth).
-const SITE_URL = 'https://moltbank.bot';
+// Derive SITE_URL from src/config/site.ts (single source of truth) so
+// the domain is never duplicated across script and source.
+const siteTs = readFileSync(join(__dirname, '..', 'src', 'config', 'site.ts'), 'utf-8');
+const siteUrlMatch = siteTs.match(/SITE_URL\s*=\s*'([^']+)'/);
+if (!siteUrlMatch) throw new Error('Could not read SITE_URL from src/config/site.ts');
+const SITE_URL = siteUrlMatch[1];
 
 const routes = [
   {
@@ -31,6 +35,8 @@ const routes = [
     description:
       'Moltbank Privacy Policy describing how we collect, use, and protect your information.',
     ogType: 'article',
+    dateModified: '2026-03-27',
+    breadcrumbName: 'Privacy Policy',
   },
   {
     path: 'terms',
@@ -38,6 +44,8 @@ const routes = [
     description:
       'Moltbank Terms of Service governing access to and use of the Moltbank services.',
     ogType: 'article',
+    dateModified: '2026-03-27',
+    breadcrumbName: 'Terms of Service',
   },
 ];
 
@@ -94,6 +102,34 @@ for (const route of routes) {
   html = html.replace(
     /<meta name="twitter:description" content="[^"]*" \/>/,
     `<meta name="twitter:description" content="${route.description}" />`,
+  );
+
+  // Inject per-route structured data (WebPage + BreadcrumbList) before </head>.
+  const jsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#webpage`,
+        name: route.title,
+        url,
+        description: route.description,
+        isPartOf: { '@id': `${SITE_URL}/#website` },
+        dateModified: route.dateModified,
+        inLanguage: 'en',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: route.breadcrumbName },
+        ],
+      },
+    ],
+  });
+  html = html.replace(
+    '</head>',
+    `    <script type="application/ld+json">${jsonLd}</script>\n  </head>`,
   );
 
   // Write dist/<route>/index.html

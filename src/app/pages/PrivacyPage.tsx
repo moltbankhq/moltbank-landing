@@ -45,6 +45,28 @@ export default function PrivacyPage() {
           content="Moltbank Privacy Policy describing how we collect, use, and protect your information."
         />
         <meta name="twitter:image" content={OG_IMAGE} />
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'WebPage',
+              '@id': `${SITE_URL}/privacy#webpage`,
+              name: 'Privacy Policy — Moltbank',
+              url: `${SITE_URL}/privacy`,
+              description: 'Moltbank Privacy Policy describing how we collect, use, and protect your information.',
+              isPartOf: { '@id': `${SITE_URL}/#website` },
+              dateModified: '2026-03-27',
+              inLanguage: 'en',
+            },
+            {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+                { '@type': 'ListItem', position: 2, name: 'Privacy Policy' },
+              ],
+            },
+          ],
+        })}</script>
       </Helmet>
 
       <LegalLayout
