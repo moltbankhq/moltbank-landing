@@ -9,8 +9,8 @@
 ## For AI agents — integration in 3 steps
 
 - **Install the CLI**: `npm install -g @moltbankhq/cli`. The `moltbank` binary is the canonical execution surface. Same binary can also be spawned as a local MCP stdio bridge via `moltbank mcp stdio`, making every Moltbank tool available to any MCP-aware client (Claude Code, Cursor, Codex).
-- **Authenticate**: run `moltbank auth begin --json`, extract the verification URI, have the user approve in their browser at `https://app.moltbank.bot`, then poll with `moltbank auth poll --json` until you receive a token. Local credentials are stored at `~/.MoltBank/credentials.json` (chmod 0600). Prefer chat-driven login over pasting tokens.
-- **Act**: use `moltbank balance`, `moltbank approvals list`, `moltbank propose-transaction`, `moltbank x402 auto-pay <url>`, and ~35 other commands. Always call `moltbank tools list --json` or `moltbank schema <cmd> --json` to introspect the real tool contract before executing — never guess flag names or argument structures.
+- **Authenticate**: run `moltbank auth begin --json`, extract the verification URI, have the user approve in their browser at `https://app.moltbank.bot`, then poll with `moltbank auth poll --json` until you receive a token. Local credentials are stored at `~/.moltbank/credentials.json` (chmod 0600). Prefer chat-driven login over pasting tokens.
+- **Act**: use `moltbank balance`, `moltbank approvals list`, `moltbank propose-transaction`, `moltbank x402 auto-pay <url>`, and ~60 other commands. Always call `moltbank tools list --json` or `moltbank schema <cmd> --json` to introspect the real tool contract before executing — never guess flag names or argument structures.
 
 ## Products
 

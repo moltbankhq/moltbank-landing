@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router';
+import { Link as RouterLink, useSearchParams } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, ShieldAlert, FileSearch, Wallet, CheckCircle2, ChevronRight, X, Play, CreditCard, Lock, Eye, AlertTriangle, Loader2, Copy, Users, TrendingUp, Sun, Moon } from 'lucide-react';
 import { FaXTwitter } from 'react-icons/fa6';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { toast, Toaster } from "sonner";
-import { Helmet } from 'react-helmet-async';
 import bridgeLogo from "figma:asset/119ed51e52a0a3201170aa0fb7adfea23d79aead.png";
-import socialPreviewImg from "figma:asset/9611b4d232a9b9467fe5dcb33bddec6e69e92556.png";
 import safeLogo from "figma:asset/3c5bd74a5614aed21b77349867167772c2c55118.png";
 import baseLogo from "figma:asset/4db65829c65302d957eb97fbea094334941479b9.png";
 import alchemyLogo from "figma:asset/cebb7b5e227fe14ac27e985204b4bafebb7afa86.png";
@@ -85,7 +83,7 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
         )}>
           <button
             onClick={() => setActiveTab('agents')}
-            className={cn("flex-1 py-1.5 md:py-2 px-4 font-bold transition-all duration-300 uppercase tracking-widest flex items-center justify-center gap-2 text-[13px] text-[14px]", activeTab === 'agents'
+            className={cn("flex-1 py-1.5 md:py-2 px-4 font-bold transition-all duration-300 uppercase tracking-widest flex items-center justify-center gap-2 text-[13px] text-[14px] cursor-pointer", activeTab === 'agents'
     ? isDarkMode ? "bg-[#1c1c1c] text-white shadow-lg shadow-black/50" : "bg-white text-gray-900 shadow-sm"
     : isDarkMode ? "text-gray-500 hover:text-gray-400 hover:bg-white/5" : "text-gray-400 hover:text-gray-600 hover:bg-white/50")}
           >
@@ -94,7 +92,7 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
           </button>
           <button
             onClick={() => setActiveTab('humans')}
-            className={cn("flex-1 py-1.5 md:py-2 px-4 font-bold transition-all duration-300 uppercase tracking-widest flex items-center justify-center gap-2 text-[13px] text-[14px]", activeTab === 'humans'
+            className={cn("flex-1 py-1.5 md:py-2 px-4 font-bold transition-all duration-300 uppercase tracking-widest flex items-center justify-center gap-2 text-[13px] text-[14px] cursor-pointer", activeTab === 'humans'
     ? isDarkMode ? "bg-[#1c1c1c] text-white shadow-lg shadow-black/50" : "bg-white text-gray-900 shadow-sm"
     : isDarkMode ? "text-gray-500 hover:text-gray-400 hover:bg-white/5" : "text-gray-400 hover:text-gray-600 hover:bg-white/50")}
           >
@@ -133,7 +131,7 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
                   <div className={cn("flex-1 px-2 py-1 whitespace-normal break-words text-left leading-relaxed text-[14px]", isDarkMode ? "text-gray-300" : "text-gray-700")}>Set up https://app.moltbank.bot/skill/SKILL.md </div>
                   <button 
                     onClick={() => copyToClipboard("Set up https://app.moltbank.bot/skill/SKILL.md")}
-                    className="bg-[#c41e05] text-[#fffafa] px-5 font-bold text-xs hover:bg-[#a31804] hover:shadow-[0_4px_14px_rgba(196,30,5,0.25)] transition-all flex items-center justify-center gap-2 whitespace-nowrap uppercase tracking-widest shrink-0 self-stretch -mr-1.5 md:-mr-2 -my-1.5 md:-my-2"
+                    className="bg-[#c41e05] text-[#fffafa] px-5 font-bold text-xs hover:bg-[#a31804] hover:shadow-[0_4px_14px_rgba(196,30,5,0.25)] transition-all flex items-center justify-center gap-2 whitespace-nowrap uppercase tracking-widest shrink-0 self-stretch -mr-1.5 md:-mr-2 -my-1.5 md:-my-2 cursor-pointer"
                   >
                     <Copy className="w-3.5 h-3.5" />
                     Copy
@@ -823,8 +821,8 @@ function Footer({ isDarkMode }: { isDarkMode: boolean }) {
           © 2026 Molt Inc. All rights reserved.
         </div>
         <div className="flex gap-6 flex-wrap justify-center">
-          <a href="#" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Privacy</a>
-          <a href="#" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Terms</a>
+          <RouterLink to="/privacy" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Privacy</RouterLink>
+          <RouterLink to="/terms" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors">Terms</RouterLink>
           {/* Discoverability pointer for AI agents and crawlers.
               /llms.txt follows the llmstxt.org convention. */}
           <a href="/llms.txt" className="text-sm font-medium text-muted-foreground hover:text-[#c41e05] transition-colors" title="Machine-readable guide for AI agents (Markdown)">For AI agents</a>
@@ -987,7 +985,7 @@ function WaitlistModal({ isOpen, onClose, data, isDarkMode }: { isOpen: boolean,
              <button 
                onClick={handleShareTwitter}
                className={cn(
-                 "w-full font-bold text-base px-6 py-4 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98]",
+                 "w-full font-bold text-base px-6 py-4 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer",
                  isDarkMode ? "bg-white text-black hover:bg-gray-200" : "bg-black text-white hover:bg-gray-800"
                )}
              >
@@ -1002,7 +1000,7 @@ function WaitlistModal({ isOpen, onClose, data, isDarkMode }: { isOpen: boolean,
                 </div>
                 <button 
                   onClick={copyToClipboard}
-                  className="bg-[#c41e05] hover:bg-[#d6280e] text-black font-bold px-6 h-[56px] flex items-center gap-2 transition-all hover:brightness-110 active:brightness-90 whitespace-nowrap"
+                  className="bg-[#c41e05] hover:bg-[#d6280e] text-black font-bold px-6 h-[56px] flex items-center gap-2 transition-all hover:brightness-110 active:brightness-90 whitespace-nowrap cursor-pointer"
                   title="Copy Link"
                 >
                   <span>COPY</span>
@@ -1112,31 +1110,14 @@ export default function LandingPage() {
 
   return (
     <div className={cn(isDarkMode ? "dark" : "light")}>
-      <Helmet>
-        <title>MoltBank - Secure Bank for Agent Fleets</title>
-        <meta name="description" content="Secure your agent fleet with MoltBank. Spending controls, audit logs, and institutional security." />
-        <link rel="canonical" href={window.location.origin} />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={window.location.href} />
-        <meta property="og:site_name" content="MoltBank" />
-        <meta property="og:title" content="MoltBank - Secure Bank for Agent Fleets" />
-        <meta property="og:description" content="Secure your agent fleet with MoltBank. Spending controls, audit logs, and institutional security." />
-        <meta property="og:image" content={socialPreviewImg.startsWith('http') ? socialPreviewImg : `${window.location.origin}${socialPreviewImg.startsWith('/') ? '' : '/'}${socialPreviewImg}`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@moltbanker" />
-        <meta name="twitter:creator" content="@moltbanker" />
-        <meta name="twitter:title" content="MoltBank - Secure Bank for Agent Fleets" />
-        <meta name="twitter:description" content="Secure your agent fleet with MoltBank. Spending controls, audit logs, and institutional security." />
-        <meta name="twitter:image" content={socialPreviewImg.startsWith('http') ? socialPreviewImg : `${window.location.origin}${socialPreviewImg.startsWith('/') ? '' : '/'}${socialPreviewImg}`} />
-        <meta name="twitter:image:alt" content="MoltBank - Secure Bank for Agent Fleets" />
-      </Helmet>
-      
+      {/*
+        Title, description, canonical, OG/Twitter meta, and JSON-LD for `/` are
+        baked into index.html as the single source of truth — non-JS crawlers
+        (Twitter, Slack, LinkedIn) read them without running React. On SPA
+        navigation to other routes (/privacy, /terms) each page's own <Helmet>
+        takes over; on unmount Helmet reverts the DOM to the index.html values.
+      */}
+
       {/* Light/Dark mode variables override */}
       <style dangerouslySetInnerHTML={{ __html: `
         .light {
