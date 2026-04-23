@@ -87,7 +87,7 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
     ? isDarkMode ? "bg-[#1c1c1c] text-white shadow-lg shadow-black/50" : "bg-white text-gray-900 shadow-sm"
     : isDarkMode ? "text-gray-500 hover:text-gray-400 hover:bg-white/5" : "text-gray-400 hover:text-gray-600 hover:bg-white/50")}
           >
-            {activeTab === 'agents' && <motion.div layoutId="tab-indicator" className="w-1.5 h-1.5 bg-[#c41e05]" />}
+            {activeTab === 'agents' && <span className="w-1.5 h-1.5 bg-[#c41e05] rounded-full" />}
             For agents
           </button>
           <button
@@ -96,7 +96,7 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
     ? isDarkMode ? "bg-[#1c1c1c] text-white shadow-lg shadow-black/50" : "bg-white text-gray-900 shadow-sm"
     : isDarkMode ? "text-gray-500 hover:text-gray-400 hover:bg-white/5" : "text-gray-400 hover:text-gray-600 hover:bg-white/50")}
           >
-            {activeTab === 'humans' && <motion.div layoutId="tab-indicator" className="w-1.5 h-1.5 bg-[#c41e05]" />}
+            {activeTab === 'humans' && <span className="w-1.5 h-1.5 bg-[#c41e05] rounded-full" />}
             For humans
           </button>
         </div>
@@ -110,14 +110,12 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
             !isDarkMode && "invert opacity-5"
           )} />
           
-          <AnimatePresence mode="wait">
-            {activeTab === 'agents' ? (
+          {activeTab === 'agents' ? (
               <motion.div
                 key="agents"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
                 className="space-y-4 font-mono relative z-10 w-full flex flex-col"
               >
                 <div className="flex gap-3 md:gap-4 items-center text-xs md:text-sm">
@@ -143,8 +141,7 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
                 key="humans"
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
                 className="flex flex-col relative z-10 w-full h-full"
               >
                 <div className="space-y-3 font-mono text-xs md:text-sm text-muted-foreground mb-6">
@@ -176,7 +173,6 @@ function AccessTabs({ isDarkMode }: { isDarkMode: boolean }) {
                 </motion.a>
               </motion.div>
             )}
-          </AnimatePresence>
         </div>
       </div>
     </div>
